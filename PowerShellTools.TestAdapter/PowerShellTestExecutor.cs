@@ -19,6 +19,8 @@ namespace PowerShellTools.TestAdapter
         public void RunTests(IEnumerable<string> sources, IRunContext runContext,
             IFrameworkHandle frameworkHandle)
         {
+            // Force to set executionpolicy before loading pester module thus the testadapter could be used in
+            // cloud testing environment where executionpolicy is restricted.
             SetupExecutionPolicy(true);
             IEnumerable<TestCase> tests = PowerShellTestDiscoverer.GetTests(sources, null);
             RunTests(tests, runContext, frameworkHandle);
